@@ -1,7 +1,4 @@
 #our web app framework!
-#Generating HTML from within Python is not fun, and actually pretty cumbersome because you have to do the
-#HTML escaping on your own to keep the application secure. Because of that Flask configures the Jinja2 template engine 
-#for you automatically.
 #requests are objects that flask handles (get set post, etc)
 #from site.views import app
 from os.path import join, dirname, realpath
@@ -35,7 +32,6 @@ app = Flask(__name__)
 global model, graph
 #initialize these variables
 model, graph = init()
-
 #decoding an image from base64 into raw representation
 
 
