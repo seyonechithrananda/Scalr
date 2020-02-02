@@ -51,7 +51,7 @@ function App() {
         'Content-Type': 'multipart/form-data'
       }
     })
-    .then(res => {
+    .then(res => { console.log("Iam running")
       const {fileName, filePath} = res.data 
       setUploadedFile({fileName, filePath})
     })
