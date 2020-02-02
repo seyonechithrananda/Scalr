@@ -35,13 +35,14 @@ function App() {
 
   function handleFileSelect (info) {
     console.log(info.file.originFileObj)
-    //setSelectedFile(event.target.files[0])
+    setSelectedFile(info.file)
   }
 
   function handleFileUpload (event) {
     const fd = new FormData ()
 
     fd.append('image', selectedFile)
+    console.log(fd)
     axios.post('http://localhost:5000/upload_file', fd, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -70,7 +71,7 @@ function App() {
           from medical imaging to self-driving cars.<br/><br/>Enter a blurry image you'd like to scale up. Our MegaSuperAdvanced™ 
           Algorithms will then increase the resolution of your image using [insert buzzword here]</p>
 
-          <Upload {...props} onChange={handleFileSelect}>
+          <Upload {...props} name= 'image' onChange={handleFileSelect}>
             <Button>
               <Icon type="upload" /> Click to Upload
             </Button>
