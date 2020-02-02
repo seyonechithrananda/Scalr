@@ -56,11 +56,6 @@ def index():
 	#initModel()
 	#render out pre-built HTML file right on the index page
 	return render_template("index.html")
-@app.route('/learn.html')
-def learn():
-	#initModel()
-	#render out pre-built HTML file right on the index page
-	return render_template("learn.html")
 
 @app.route('/upload_file', methods=['GET', 'POST'])
 def upload_file():
