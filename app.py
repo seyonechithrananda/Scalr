@@ -104,7 +104,7 @@ def get_image(img_link):
 	req.urlretrieve(img_link, "/static/cellular_image.jpg")
 
 @app.route('/enlarge/<filename>')
-def denoise(filename):
+def enlarge(filename):
 	img = 0
 	debug()
 	print('It has begun')
@@ -136,7 +136,7 @@ def denoise(filename):
 	debug()
 	print('model works')
 	print (np.argmax(img,axis=1))
-		#cleaned_path = UPLOAD_FOLDER + 'cleaned-' + filename
+	#cleaned_path = UPLOAD_FOLDER + 'cleaned-' + filename
 	debug()
 	print(img.shape)
 	# img = Image.fromarray(img)
