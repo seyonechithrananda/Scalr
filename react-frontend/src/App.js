@@ -12,6 +12,7 @@ function App() {
   const [uploadedFile, setUploadedFile] = useState()
   const [displayImage, setDisplayImage] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
+
   const props = {
     name: 'file',
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -74,16 +75,17 @@ function App() {
               <Icon type="upload" /> Click to Upload
             </Button>
           </Upload>
-          <Button type="primary" className="mt-3">Upload</Button>
+          <Button type="primary" className="mt-3" onClick={handleFileUpload}>Upload</Button>
         </div>
 
         <div className="mt-10 flex justify-between px-64 w-full">
           <div className="text-left"> 
             <h2 className={displayImage ? "text-lg" : "text-lg invisible"}>Original</h2>
-            
+            <img className={displayImage ? "" : "invisible"} src=".../static/uploads/original.png"/>
           </div>
           <div className="text-right">
             <h2 className={displayImage ? "text-lg" : "text-lg invisible"}>SuperSized</h2>
+            <img className={displayImage ? "" : "invisible"} src=".../static/uploads/enlarged.png"/>
           </div>
         </div>
       </div>
