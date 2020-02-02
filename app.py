@@ -3,14 +3,15 @@
 #from site.views import app
 from os.path import join, dirname, realpath
 from flask import request, redirect, url_for, render_template, flash, send_from_directory
+from flask_cors import CORS
 #from werkzeug.utils import secure_filename
-from PIL import Image
+from PIL import Image 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template,request
 #scientific computing library for saving, reading, and resizing images
-from scipy.misc import imsave, imread, imresize
+from scipy.misc import imread, imresize
 #for matrix math
 import numpy as np
 #for importing our keras model
@@ -34,6 +35,7 @@ from keras.models import load_model
 
 #initalize our flask app
 app = Flask(__name__)
+CORS(app)
 #global vars for easy reusability
 
 # global model, graph
@@ -68,7 +70,7 @@ def debug():
 def upload_file():
     if request.method == 'POST':
         try:
-            f = request.files['image']
+            f = request.files['file']
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename("original.png")))
             # return redirect(url_for('hello', filename=f.filename))
         except Exception as e:
