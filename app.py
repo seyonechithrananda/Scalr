@@ -99,7 +99,7 @@ def denoise(filename):
 	x = cv2.imread('output.png')
 	# x = imread('output.png', mode = 'RGB')
 	print('New cv2 Worked')
-	x = cv2.imresize(x,(25,25))
+	x = cv2.imresize(x,(100,100))
 	debug()
 	x = np.array(x)
 	x = x.astype('float32')
@@ -107,7 +107,7 @@ def denoise(filename):
 	print(type(x))
 	x /= 255
 	print('it worked')
-	x = x.reshape(1,25,25,3)
+	x = x.reshape(1,100,100,3)
 	print('scaled it down')
 	print('test the values')
     # Image processing 
