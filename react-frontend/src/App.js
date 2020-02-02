@@ -4,7 +4,7 @@ import './App.css';
 import './tailwind_styles.css'
 import 'antd/dist/antd.css';
 
-import { Upload, message, Button, Icon, Switch } from 'antd'
+import { Upload, message, Button, Icon, Switch, Form } from 'antd'
 
 function App() {
 
@@ -22,7 +22,7 @@ function App() {
 
     onChange(info) {
       if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
+        console.log(info.file, info.fileList[0]);
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`);
@@ -34,11 +34,11 @@ function App() {
 
 
   function handleFileSelect (info) {
-    console.log(info)
     setSelectedFile(info.file)
   }
 
   function handleFileUpload (event) {
+    event.preventDefault()
     const fd = new FormData ()
 
     fd.append('file', selectedFile)
@@ -50,11 +50,11 @@ function App() {
       }
     })
     .then(res => {
+      console.log("Success!")
       const {fileName, filePath} = res.data 
       setUploadedFile({fileName, filePath})
     })
     .catch(error => console.log(error))
-    console.log(selectedFile)
   }
 
   function onSwitchChange() {
@@ -63,7 +63,7 @@ function App() {
 
   return (
     <>
-      <h1 className={darkMode ? "text-4xl sticky self-center font-bold py-2 pl-64 shadow-lg bg-gray-800 text-white mb-0" :"mb-0 text-4xl sticky self-center font-bold py-2 pl-64 shadow-lg"}>ScaleRes.</h1>
+      <h1 className={darkMode ? "text-4xl sticky self-center font-bold py-2 pl-64 shadow-lg bg-gray-800 text-white mb-0" :"mb-0 text-4xl sticky self-center font-bold py-2 pl-64 shadow-lg"}>Scalr.</h1>
       <div className={darkMode ? "bg-gray-700 w-screen h-full absolute pt-1/4" : "pt-1/4 w-screen h-screen absolute"}>
         <div className="px-64 pt-16">
           <Switch defaultChecked={false} onChange={onSwitchChange}/>
@@ -71,13 +71,14 @@ function App() {
           learning research over the last few years as its potential in different industries is being explored, 
           from medical imaging to self-driving cars.<br/><br/>Enter a blurry image you'd like to scale up. Our MegaSuperAdvanced™ 
           Algorithms will then increase the resolution of your image using [insert buzzword here]</p>
-
-          <Upload {...props} name= 'image' onChange={handleFileSelect}>
-            <Button>
-              <Icon type="upload" /> Click to Upload
-            </Button>
-          </Upload>
-          <Button type="primary" className="mt-3" onClick={handleFileUpload}>Upload</Button>
+          <Form onSubmit={handleFileUpload} encType="multipart/form-data">
+            <Upload {...props} name='file' onChange={handleFileSelect} method="POST">
+              <Button>
+                <Icon type="upload" /> Click to Upload
+              </Button>
+            </Upload>
+            <Button type="primary" htmlType="submit" className="mt-3" >Upload</Button>
+          </Form>
         </div>
 
         <div className="mt-10 flex justify-between px-64 w-full">
