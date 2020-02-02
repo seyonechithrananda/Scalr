@@ -62,7 +62,7 @@ def upload_file():
     if request.method == 'POST':
         try:
             f = request.files['file']
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename("original.png")))
             # return redirect(url_for('hello', filename=f.filename))
         except Exception as e:
             print("Failure In Saving")
