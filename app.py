@@ -46,7 +46,6 @@ def convertImage(imgData1):
 	#print(imgstr) 
 	with open('output.png','wb') as output: 
 		output.write(base64.b64decode(imgstr))
-
 def debug():
 	print('-------------------------------------------------------------------------')
 
@@ -67,11 +66,9 @@ def upload_file():
         except Exception as e:
             print("Failure In Saving")
     return redirect(url_for('hello'))
-
 @app.route('/uploads/<filename>')
 def view_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
 
 # @app.route('/return_file/<filename>')
 # def return_file(filename):
@@ -90,7 +87,6 @@ def denoise(filename):
 	img = 0
 	debug()
 	print('It has begun')
-	debug()
 	imgData= os.path.join(app.config['UPLOAD_FOLDER'], filename)
 	debug()
 	print(imgData)
