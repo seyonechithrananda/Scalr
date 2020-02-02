@@ -24,6 +24,8 @@ import sys
 # import cv2
 import os
 import base64
+import urllib.request as req
+
 
 from keras.models import load_model
 #tell our app where our saved model is
@@ -96,6 +98,10 @@ def convert(img):
 	x = x.astype('float32')
 	x /=255
 	return x
+
+
+def get_image(img_link):
+	req.urlretrieve(img_link, "/static/cellular_image.jpg")
 
 @app.route('/enlarge/<filename>')
 def denoise(filename):
