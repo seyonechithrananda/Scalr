@@ -10,7 +10,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template,request
 #scientific computing library for saving, reading, and resizing images
-from scipy import imsave, imread, imresize
+from scipy.misc import imsave, imread, imresize
 #for matrix math
 import numpy as np
 #for importing our keras model
@@ -23,15 +23,23 @@ import sys
 # import cv2
 import os
 import base64
+
+from keras.models import load_model
 #tell our app where our saved model is
-sys.path.append(os.path.abspath("./model"))
-from model import load
+
+
+# sys.path.append(os.path.abspath("./model"))
+# from load import *
+
+
 #initalize our flask app
 app = Flask(__name__)
 #global vars for easy reusability
-global model, graph
+
+# global model, graph
+
 #initialize these variables
-model, graph = init()
+# model, graph = init()
 #decoding an image from base64 into raw representation
 
 
@@ -64,7 +72,7 @@ def upload_file():
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename("original.png")))
             # return redirect(url_for('hello', filename=f.filename))
         except Exception as e:
-            print("Failure In Saving")
+            print(e)
     return redirect(url_for(''))
 
 @app.route('/uploads/<filename>')
@@ -111,6 +119,7 @@ def denoise(filename):
 	print(x[0,0:3,24,2])
 	debug()
 	with graph.as_default():
+		model=load_model('model\medical_SRGAN.h5')
 		img = model.predict(x)
 		img = img [0, : , :, :]
 		debug()
