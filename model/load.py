@@ -13,12 +13,10 @@ def init():
 	#load woeights into new model
 	loaded_model.load_weights("model.h5")
 	print("Loaded Model from disk")
-
 	#compile and evaluate loaded model
 	loaded_model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 	#loss,accuracy = model.evaluate(X_test,y_test)
 	#print('loss:', loss)
 	#print('accuracy:', accuracy)
 	graph = tf.get_default_graph()
-
 	return loaded_model,graph
