@@ -10,7 +10,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template,request
 #scientific computing library for saving, reading, and resizing images
-from scipy.misc import imsave, imread, imresize
+from scipy import imsave, imread, imresize
 #for matrix math
 import numpy as np
 #for importing our keras model
@@ -50,22 +50,23 @@ def debug():
 	print('-------------------------------------------------------------------------')
 
 
-@app.route('/')
-def index():
-	#initModel()
-	#render out pre-built HTML file right on the index page
-	return render_template("index.html")
+# @app.route('/')
+# def index():
+# 	#initModel()
+# 	#render out pre-built HTML file right on the index page
+# 	return render_template("index.html")
 
 @app.route('/upload_file', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         try:
-            f = request.files['file']
+            f = request.files['image']
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename("original.png")))
             # return redirect(url_for('hello', filename=f.filename))
         except Exception as e:
             print("Failure In Saving")
-    return redirect(url_for('hello'))
+    return redirect(url_for(''))
+
 @app.route('/uploads/<filename>')
 def view_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
@@ -92,7 +93,7 @@ def denoise(filename):
 	print(imgData)
 	print('Data transfered')
 	#convertImage(imgData)
-	x = cv2.imread('output.png')
+	x = cv2.imread('/static/uploads/output.png')
 	# x = imread('output.png', mode = 'RGB')
 	print('New cv2 Worked')
 	x = cv2.imresize(x,(100,100))
@@ -115,7 +116,7 @@ def denoise(filename):
 		debug()
 		print('model works')
 		print (np.argmax(img,axis=1))
-		cleaned_path = UPLOAD_FOLDER + 'cleaned-' + filename
+		#cleaned_path = UPLOAD_FOLDER + 'cleaned-' + filename
 		debug()
 		print(img.shape)
 		# img = Image.fromarray(img)
@@ -123,7 +124,7 @@ def denoise(filename):
 		print(type(img))
 		debug()
 		print('convertimage worked')
-		Image.fromarray(img).save("enlarged.png")
+		Image.fromarray(img).save("/static/uploads/enlarged.png")
 		print('SAVED image')
 		# img.save(cleaned_path)
 		# return render_template('DeepGalaxyDemo.html',  filename=filename, cleaned_path='cleaned-'+filename )
@@ -131,6 +132,7 @@ def denoise(filename):
 if __name__ == "__main__":
 	#decide what port to run the app in
 	port = int(os.environ.get('PORT', 5000))
+	print("running on port 5000")
 	#run the app locally on the givn port
 	app.run(host='0.0.0.0', port=port)
 	#optional if we want to run in debugging mode
