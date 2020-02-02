@@ -25,7 +25,7 @@ import os
 import base64
 #tell our app where our saved model is
 sys.path.append(os.path.abspath("./model"))
-from load import * 
+from model import load
 #initalize our flask app
 app = Flask(__name__)
 #global vars for easy reusability
@@ -67,7 +67,6 @@ def upload_file():
     if request.method == 'POST':
         try:
             f = request.files['file']
-			img = 
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
             # return redirect(url_for('hello', filename=f.filename))
             return render_template('DeepGalaxyDemo.html', filename=f.filename)
@@ -137,7 +136,7 @@ def denoise(filename):
 		Image.fromarray(img).save("enlarged.png")
 		print('SAVED image')
 		# img.save(cleaned_path)
-		return render_template('DeepGalaxyDemo.html',  filename=filename, cleaned_path='cleaned-'+filename )
+		# return render_template('DeepGalaxyDemo.html',  filename=filename, cleaned_path='cleaned-'+filename )
 
 if __name__ == "__main__":
 	#decide what port to run the app in
