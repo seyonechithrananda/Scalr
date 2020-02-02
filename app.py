@@ -64,9 +64,8 @@ def upload_file():
             f = request.files['file']
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
             # return redirect(url_for('hello', filename=f.filename))
-            return render_template('DeepGalaxyDemo.html', filename=f.filename)
         except Exception as e:
-            return render_template('DeepGalaxyDemo.html', error=e)
+            print("Failure In Saving")
     return redirect(url_for('hello'))
 
 @app.route('/uploads/<filename>')
