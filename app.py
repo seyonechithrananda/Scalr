@@ -66,14 +66,17 @@ def debug():
 
 @app.route('/upload_file', methods=['GET', 'POST'])
 def upload_file():
-    if request.method == 'POST':
-        try:
-            f = request.files['image']
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename("original.png")))
-            # return redirect(url_for('hello', filename=f.filename))
-        except Exception as e:
-            print(e)
-    return redirect(url_for(''))
+	if request.method == 'POST':
+		try:
+			f = request.files['file']
+
+			# f = base64.b64decode(f)
+			debug()
+			f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+			# return redirect(url_for('hello', filename=f.filename))
+		except Exception as e:
+			print(e)
+	return redirect(url_for('/uploads/<filename>'))
 
 @app.route('/uploads/<filename>')
 def view_file(filename):

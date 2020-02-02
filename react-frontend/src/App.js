@@ -34,14 +34,14 @@ function App() {
 
 
   function handleFileSelect (info) {
-    console.log(info.file.originFileObj)
+    console.log(info)
     setSelectedFile(info.file)
   }
 
   function handleFileUpload (event) {
     const fd = new FormData ()
 
-    fd.append('image', selectedFile)
+    fd.append('file', selectedFile)
     console.log(fd)
     axios.post('http://localhost:5000/upload_file', fd, {
       headers: {
