@@ -91,7 +91,7 @@ def view_file(filename):
 
 def convert(img):
 	x = cv2.imread(img)
-	x = resize(x,(25,25))
+	x = resize(x,(100,100))
 	x = np.array(x)
 	x = x.astype('float32')
 	x /=255
@@ -124,25 +124,24 @@ def denoise(filename):
     # Image processing 
 	print(x[0,0:3,24,2])
 	debug()
-	with graph.as_default():
-		model=load_model('model\medical_SRGAN.h5')
-		img = model.predict(x)
-		img = img [0, : , :, :]
-		debug()
-		print('model works')
-		print (np.argmax(img,axis=1))
+	model=load_model('model\medical_SRGAN.h5')
+	img = model.predict(x)
+	img = img [0, : , :, :]
+	debug()
+	print('model works')
+	print (np.argmax(img,axis=1))
 		#cleaned_path = UPLOAD_FOLDER + 'cleaned-' + filename
-		debug()
-		print(img.shape)
-		# img = Image.fromarray(img)
-		img =(img * 255).astype(np.uint8)
-		print(type(img))
-		debug()
-		print('convertimage worked')
-		Image.fromarray(img).save("/static/uploads/enlarged.png")
-		print('SAVED image')
-		# img.save(cleaned_path)
-		# return render_template('DeepGalaxyDemo.html',  filename=filename, cleaned_path='cleaned-'+filename )
+	debug()
+	print(img.shape)
+	# img = Image.fromarray(img)
+	img =(img * 255).astype(np.uint8)
+	print(type(img))
+	debug()
+	print('convertimage worked')
+	Image.fromarray(img).save("/static/uploads/enlarged.png")
+	print('SAVED image')
+	# img.save(cleaned_path)
+	# return render_template('DeepGalaxyDemo.html',  filename=filename, cleaned_path='cleaned-'+filename )
 
 if __name__ == "__main__":
 	#decide what port to run the app in
