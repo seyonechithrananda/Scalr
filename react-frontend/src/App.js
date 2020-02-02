@@ -63,7 +63,7 @@ function App() {
 
   return (
     <>
-      <h1 className={darkMode ? "text-4xl sticky self-center font-bold py-2 pl-64 shadow-lg bg-gray-800 text-white mb-0" :"mb-0 text-4xl sticky self-center font-bold py-2 pl-64 shadow-lg"}>ScaleRes.</h1>
+      <h1 className={darkMode ? "text-4xl sticky self-center font-bold py-2 pl-64 shadow-lg bg-gray-800 text-white mb-0" :"mb-0 text-4xl sticky self-center font-bold py-2 pl-64 shadow-lg"}>Scalr.</h1>
       <div className={darkMode ? "bg-gray-700 w-screen h-full absolute pt-1/4" : "pt-1/4 w-screen h-screen absolute"}>
         <div className="px-64 pt-16">
           <Switch defaultChecked={false} onChange={onSwitchChange}/>
