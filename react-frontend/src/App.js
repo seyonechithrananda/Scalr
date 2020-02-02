@@ -4,7 +4,7 @@ import './App.css';
 import './tailwind_styles.css'
 import 'antd/dist/antd.css';
 
-import {Upload, message, Button, Icon, Switch} from 'antd'
+import { Upload, message, Button, Icon, Switch } from 'antd'
 
 function App() {
 
@@ -42,6 +42,9 @@ function App() {
     const fd = new FormData ()
 
     fd.append('file', selectedFile)
+
+    console.log("Form data:")
+
     console.log(fd)
     axios.post('http://localhost:5000/upload_file', fd, {
       headers: {
@@ -64,7 +67,7 @@ function App() {
     <>
       <h1 className={darkMode ? "text-4xl sticky self-center font-bold py-2 pl-64 shadow-lg bg-gray-800 text-white mb-0" :"mb-0 text-4xl sticky self-center font-bold py-2 pl-64 shadow-lg"}>ScaleRes.</h1>
       <div className={darkMode ? "bg-gray-700 w-screen h-full absolute pt-1/4" : "pt-1/4 w-screen h-screen absolute"}>
-        <div className="px-64 pt-1/2">
+        <div className="px-64 pt-16">
           <Switch defaultChecked={false} onChange={onSwitchChange}/>
           <p className={darkMode ? "text-base mt-4 text-white" : "text-base pt-4"}>Increasing the resolution of a small or blurry image has been an exciting area of machine 
           learning research over the last few years as its potential in different industries is being explored, 
