@@ -10,9 +10,7 @@ from flask import request, redirect, url_for, render_template, flash, send_from_
 from PIL import Image
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
 from werkzeug.utils import secure_filename
-
 from flask import Flask, render_template,request
 #scientific computing library for saving, reading, and resizing images
 from scipy.misc import imsave, imread, imresize
@@ -30,7 +28,7 @@ import os
 import base64
 #tell our app where our saved model is
 sys.path.append(os.path.abspath("./model"))
-from model import load 
+from load import * 
 #initalize our flask app
 app = Flask(__name__)
 #global vars for easy reusability
@@ -40,10 +38,7 @@ model, graph = init()
 
 #decoding an image from base64 into raw representation
 
-# def convertImage(imgData1): 
-# 	imgstr = re.search(b'base64,(.*)',imgData1).group(1) #print(imgstr) 
-# 	with open('output.png','wb') as output: 
-# 		output.write(base64.b64decode(imgstr))	
+
 UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'static/uploads/')
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -70,169 +65,13 @@ def learn():
 	#initModel()
 	#render out pre-built HTML file right on the index page
 	return render_template("learn.html")
-@app.route('/DeepGalaxy.html')
-def DeepGalaxy():
-	#initModel()
-	#render out pre-built HTML file right on the index page
-	return render_template("DeepGalaxy.html")
-@app.route('/DeepGalaxyDemo.html')
-def DeepGalaxyDemo(filename="", cleaned_path="", error=""):
-	#initModel()
-	#render out pre-built HTML file right on the index page
-	return render_template('DeepGalaxyDemo.html', filename=filename, cleaned_path=cleaned_path, error=error)
-@app.route('/research.html')
-def research():
-	#initModel()
-	#render out pre-built HTML file right on the index page
-	return render_template("research.html")
-@app.route('/team.html')
-def team():
-	#initModel()
-	#render out pre-built HTML file right on the index page
-	return render_template("team.html")
-@app.route('/index.html')
-def home():
-	#initModel()
-	#render out pre-built HTML file right on the index page
-	return render_template("index.html")
-
-
-
-
-
-# @app.route('/denosise/learn.html')
-# def learn():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("learn.html")
-# @app.route('/denosise/DeepGalaxy.html')
-# def DeepGalaxy():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("DeepGalaxy.html")
-# @app.route('/denosise/DeepGalaxyDemo.html')
-# def DeepGalaxyDemo(filename="", cleaned_path="", error=""):
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template('DeepGalaxyDemo.html', filename=filename, cleaned_path=cleaned_path, error=error)
-# @app.route('/denosise/research.html')
-# def research():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("research.html")
-# @app.route('/denosise/team.html')
-# def team():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("team.html")
-# @app.route('/denosise/index.html')
-# def home():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("index.html")
-
-
-# @app.route('/upload_file/learn.html')
-# def learn():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("learn.html")
-# @app.route('/upload_file/DeepGalaxy.html')
-# def DeepGalaxy():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("DeepGalaxy.html")
-# @app.route('/upload_file/DeepGalaxyDemo.html')
-# def DeepGalaxyDemo(filename="", cleaned_path="", error=""):
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template('DeepGalaxyDemo.html', filename=filename, cleaned_path=cleaned_path, error=error)
-# @app.route('/upload_file/research.html')
-# def research():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("research.html")
-# @app.route('/upload_file/team.html')
-# def team():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("team.html")
-# @app.route('/upload_file/index.html')
-# def home():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("index.html")
-
-
-# @app.route('/uploads/learn.html')
-# def learn():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("learn.html")
-# @app.route('/uploads/DeepGalaxy.html')
-# def DeepGalaxy():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("DeepGalaxy.html")
-# @app.route('/uploads/DeepGalaxyDemo.html')
-# def DeepGalaxyDemo(filename="", cleaned_path="", error=""):
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template('DeepGalaxyDemo.html', filename=filename, cleaned_path=cleaned_path, error=error)
-# @app.route('/uploads/research.html')
-# def research():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("research.html")
-# @app.route('/uploads/team.html')
-# def team():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("team.html")
-# @app.route('/uploads/index.html')
-# def home():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("index.html")
-
-
-# @app.route('/return_file/learn.html')
-# def learn():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("learn.html")
-# @app.route('/return_file/DeepGalaxy.html')
-# def DeepGalaxy():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("DeepGalaxy.html")
-# @app.route('/return_file/DeepGalaxyDemo.html')
-# def DeepGalaxyDemo(filename="", cleaned_path="", error=""):
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template('DeepGalaxyDemo.html', filename=filename, cleaned_path=cleaned_path, error=error)
-# @app.route('/return_file/research.html')
-# def research():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("research.html")
-# @app.route('/return_file/team.html')
-# def team():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("team.html")
-# @app.route('/return_file/index.html')
-# def home():
-# 	#initModel()
-# 	#render out pre-built HTML file right on the index page
-# 	return render_template("index.html")
-
 
 @app.route('/upload_file', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         try:
             f = request.files['file']
+			img = 
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
             # return redirect(url_for('hello', filename=f.filename))
             return render_template('DeepGalaxyDemo.html', filename=f.filename)
@@ -240,17 +79,24 @@ def upload_file():
             return render_template('DeepGalaxyDemo.html', error=e)
     return redirect(url_for('hello'))
 
-
 @app.route('/uploads/<filename>')
 def view_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
-@app.route('/return_file/<filename>')
-def return_file(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename, as_attachment = True)
+# @app.route('/return_file/<filename>')
+# def return_file(filename):
+#     return send_from_directory(UPLOAD_FOLDER, filename, as_attachment = True)
 
-@app.route('/denosise/<filename>')
+def convert(img):
+	x = cv2.imread(img)
+	x = resize(x,(25,25))
+	x = np.array(x)
+	x = x.astype('float32')
+	x /=255
+	return x
+
+@app.route('/enlarge/<filename>')
 def denoise(filename):
 	img = 0
 	debug()
@@ -275,6 +121,7 @@ def denoise(filename):
 	x = x.reshape(1,25,25,3)
 	print('scaled it down')
 	print('test the values')
+    # Image processing 
 	print(x[0,0:3,24,2])
 	debug()
 	with graph.as_default():
@@ -291,7 +138,7 @@ def denoise(filename):
 		print(type(img))
 		debug()
 		print('convertimage worked')
-		Image.fromarray(img).save(cleaned_path)
+		Image.fromarray(img).save("enlarged.png")
 		print('SAVED image')
 		# img.save(cleaned_path)
 		return render_template('DeepGalaxyDemo.html',  filename=filename, cleaned_path='cleaned-'+filename )
